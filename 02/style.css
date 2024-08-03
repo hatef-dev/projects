@@ -17,6 +17,7 @@ nav {
   font-size: 1rem;
   color: rgb(33, 33, 33);
   overflow: hidden;
+  display: flex;
 }
 .hero-section {
   height: 80vh;
@@ -59,4 +60,9 @@ nav {
   color: rgb(33, 33, 33);
   border: none;
   font-size: 0.7rem;
+}
+.letter {
+  margin: 0;
+  padding: 0;
+
 }
