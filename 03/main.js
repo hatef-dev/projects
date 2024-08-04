@@ -25,13 +25,52 @@ containers.forEach((container) => {
 document.addEventListener("click", () => {
   containers.forEach((container) => {
     const input = container.querySelector(".input");
-    // const line = container.querySelector(".elastic-line");
+    const line = container.querySelector(".elastic-line");
     const placeHolder = container.querySelector(".placeholder");
 
-    if(document.activeElement !== input){
-      if(!input.value){
-        gsap.to(placeHolder, {y:0, scale: 1, })
+    if (document.activeElement !== input) {
+      if (!input.value) {
+        gsap.to(placeHolder, { y: 0, scale: 1, color: "#777474" });
+        gsap.to(line, { stroke: "#D1D4DA" });
       }
     }
+    input.addEventListener("input", (e) => {
+      if (input.type === "text") {
+        let inputText = e.target.value;
+        if (inputText.length > 2) {
+          colorize(line, placeHolder, "#6391E8");
+        } else {
+          colorize(line, placeHolder, "#FE8C99");
+        }
+      } else if (input.type === "email") {
+        let inputText = e.target.value;
+        if (validateEmail(inputText)) {
+          colorize(line, placeHolder, "#6391E8");
+        } else {
+          colorize(line, placeHolder, "#FE8C99");
+        }
+      } else if (input.type === "tel") {
+        let inputText = e.target.value;
+        if (validatePhone(inputText)) {
+          colorize(line, placeHolder, "#6391E8");
+        } else {
+          colorize(line, placeHolder, "#FE8C99");
+        }
+      }
+    });
   });
 });
+
+function validateEmail(email) {
+  var re = /\S+@\S+\.\S+/;
+  return re.test(email);
+}
+function validatePhone(phone) {
+  var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+  return re.test(phone);
+}
+// Colorize
+const colorize = (line, placeHolder, color) => {
+  gsap.to(line, { stroke: color, duration: 0.75 });
+  gsap.to(placeHolder, { color: color, duration: 0.75 });
+};
