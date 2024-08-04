@@ -74,3 +74,4 @@ const colorize = (line, placeHolder, color) => {
   gsap.to(line, { stroke: color, duration: 0.75 });
   gsap.to(placeHolder, { color: color, duration: 0.75 });
 };
+console.log('test')
