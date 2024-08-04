@@ -1,24 +1,18 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+import { gsap } from "gsap";
+const tl = gsap.timeline({defaults: { duration:1 }})
+const containers = document.querySelectorAll(".input-container");
+const start =
+  "M0 0.999512C0 0.999512 60.5 0.999512 150 0.999512C239.5 0.999512 300 0.999512 300 0.999512";
+const end =
+  "M1 0.999512C1 0.999512 61.5 7.5 151 7.5C240.5 7.5 301 0.999512 301 0.999512";
+containers.forEach((container) => {
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
-
-setupCounter(document.querySelector('#counter'))
+  const input = container.querySelector(".input");
+  const line = container.querySelector(".elastic-line");
+  input.addEventListener("focus", () => {
+    if (!input.value) {
+      tl.fromTo(line, { attr: { d: start } }, { attr: { d: end }});
+    }
+    tl.to(line, { attr: { d: start }, ease: "elastic.out(2,0.5)",}, "<50%")
+  });
+});
