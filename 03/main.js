@@ -113,5 +113,36 @@ checkbox.addEventListener("click", () => {
 gsap.set("#eye", { transformOrigin: "center" });
 gsap
   .timeline()
-  .to("#eye", { scaleY: 0.3,repeat: 0, repeatDelay: 1, yoyo: false  })
-  .to("#eye", { scaleY: 1 ,repeat: -1, repeatDelay: 5, yoyo: false })
+  .to("#eye", { scaleY: 0.3 })
+  .to("#eye", { scaleY: 1, repeat: -1, repeatDelay: 5, duration: 1 });
+
+const buttonSubmit = document.querySelector("button");
+const submitted = document.querySelector(".submitted");
+const form = document.querySelector("form");
+const inputName = document.querySelector(".input-name");
+const inputEmail = document.querySelector(".input-email");
+const inputPhone = document.querySelector(".input-number");
+
+buttonSubmit.addEventListener("click", (e) => {
+  e.preventDefault();
+  let inputValueName = inputName.value.trim()
+
+  if (
+    validateEmail(inputEmail.value)&&
+    validatePhone(inputPhone.value)&&
+    inputValueName.length>2
+  ) {
+    gsap.set(".contact-left, .contact-right", { display: "none" });
+    gsap.set("#hand", {transformOrigin: 'left'})
+    gsap.to(form, { scale: 0.8, ease: "elastic.out(1, 0.4)", duration: 2 });
+    gsap.fromTo(
+      submitted,
+      { opacity: 0, y: "100%" },
+      { opacity: 1, y: 0, duration: 0.75, ease: "power3.out" },
+      "<"
+    );
+    gsap.fromTo('#hand', {rotation: 0, y: 0}, {rotation: -10, y:2, ease: "elastic(3,0.3)", duration: 2, delay: 1}, "<50%")
+  } else {
+    gsap.fromTo('.text-error-para', {opacity: 1, y: 100 }, {opacity:1 ,y: 0 , duration: 0.5, ease: "power3.out", cursor: "auto"})
+  }
+});

@@ -146,6 +146,17 @@ button {
   transform: translate(-50%, -50%);
   opacity: 0;
 }
+.text-error {
+  overflow: hidden;
+}
+.text-error p{
+  color:red;
+  font-size: 0.7rem;
+  opacity: 0;
+  cursor: default;
+
+  overflow: hidden;
+}
 
 @media screen and (max-width: 812px) {
   form {
