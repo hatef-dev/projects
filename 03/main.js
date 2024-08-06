@@ -74,4 +74,44 @@ const colorize = (line, placeHolder, color) => {
   gsap.to(line, { stroke: color, duration: 0.75 });
   gsap.to(placeHolder, { color: color, duration: 0.75 });
 };
-console.log('test')
+
+// CheckBox animation
+const checkbox = document.querySelector(".checkbox");
+const tl2 = gsap.timeline({
+  defaults: { duration: 0.5, ease: "Power2.easeOut" },
+});
+const tickMarkPath = document.querySelector(".tick-mark path");
+const pathLength = tickMarkPath.getTotalLength();
+
+gsap.set(tickMarkPath, {
+  strokeDashoffset: pathLength,
+  strokeDasharray: pathLength,
+});
+
+checkbox.addEventListener("click", () => {
+  if (checkbox.checked) {
+    tl2.to(".checkbox-fill", { top: "0%" });
+    tl2.fromTo(
+      tickMarkPath,
+      { strokeDashoffset: pathLength },
+      { strokeDashoffset: 0 },
+      "<50%"
+    );
+    tl2.to(".checkbox-label", { color: "#6391e8" }, "<");
+  } else {
+    tl2.fromTo(
+      tickMarkPath,
+      { strokeDashoffset: 0 },
+      { strokeDashoffset: pathLength }
+    );
+    tl2.to(".checkbox-fill", { top: "100%" }, "50%");
+    tl2.to(".checkbox-label", { color: "#777474" }, "<");
+  }
+});
+
+//character Animation
+gsap.set("#eye", { transformOrigin: "center" });
+gsap
+  .timeline()
+  .to("#eye", { scaleY: 0.3,repeat: 0, repeatDelay: 1, yoyo: false  })
+  .to("#eye", { scaleY: 1 ,repeat: -1, repeatDelay: 5, yoyo: false })
